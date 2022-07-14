@@ -153,8 +153,6 @@ copy_checkout_from_s3() {
       | awk '{print $4}'
   )
 
-  pushd .. >/dev/null
-
   echo "copying checkout ${s3_url}/${checkout}"
   # Use aria2c download utility if available in the supplied AMI. It parallelize the download which
   # speeds up the fetch considerably. aria2c can be installed with `sudo apt-get install aria2`.
@@ -169,7 +167,6 @@ copy_checkout_from_s3() {
 
   extract_archive "${PWD}/${checkout}"
   rm "${PWD}/${checkout}"
-  popd >/dev/null
 
   log_info "Copying from S3 done"
 }
