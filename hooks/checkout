@@ -168,6 +168,12 @@ copy_checkout_from_s3() {
   extract_archive "${PWD}/${checkout}"
   rm "${PWD}/${checkout}"
 
+  # Check if extracted archive is a repository
+  if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" != "true" || -n "$(git check-ignore .)" ]]; then
+    # Change directory to first child when repository is not found
+    pushd $(ls -d */ | head -n 1)
+  fi
+
   log_info "Copying from S3 done"
 }
 
