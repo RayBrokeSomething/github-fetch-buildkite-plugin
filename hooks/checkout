@@ -110,6 +110,8 @@ print_repo_dir() {
 }
 
 extract_archive() {
+  echo "bk checkout path: $BUILDKITE_BUILD_CHECKOUT_PATH"
+
   local file_path="${1}"
   if [[ "$OSTYPE" == "darwin"* ]]; then
     extract_archive_on_macos "${file_path}"
@@ -121,6 +123,9 @@ extract_archive() {
 extract_archive_on_macos() {
   local file_path="${1}"
   tar -xf "${file_path}"
+
+  echo $(ls)
+  pwd
 }
 
 extract_archive_on_linux() {
@@ -135,6 +140,9 @@ extract_archive_on_linux() {
   fi
 
   tar "${decompress_options[@]}" -xf "${file_path}"
+
+  echo $(ls)
+  pwd
 }
 
 copy_checkout_from_s3() {
