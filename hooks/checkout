@@ -122,7 +122,7 @@ extract_archive() {
 
 extract_archive_on_macos() {
   local file_path="${1}"
-  tar -xf "${file_path}"
+  tar -xf "${file_path}" -C "${BUILDKITE_BUILD_CHECKOUT_PATH}"
 
   echo $(ls)
   pwd
