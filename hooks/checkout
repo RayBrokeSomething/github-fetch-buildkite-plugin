@@ -110,8 +110,6 @@ print_repo_dir() {
 }
 
 extract_archive() {
-  echo "bk checkout path: $BUILDKITE_BUILD_CHECKOUT_PATH"
-
   local file_path="${1}"
   if [[ "$OSTYPE" == "darwin"* ]]; then
     extract_archive_on_macos "${file_path}"
@@ -468,6 +466,8 @@ main() {
   check_set BUILDKITE_BRANCH
   check_set BUILDKITE_COMMIT
   check_set BUILDKITE_BUILD_CHECKOUT_PATH
+
+  echo "bk checkout path: $BUILDKITE_BUILD_CHECKOUT_PATH"
 
   # shellcheck disable=SC2064
   trap exit_handler EXIT
