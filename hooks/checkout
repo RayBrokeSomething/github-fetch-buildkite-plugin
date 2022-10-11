@@ -120,7 +120,12 @@ extract_archive() {
 
 extract_archive_on_macos() {
   local file_path="${1}"
-  tar -xf "${file_path}" -C "${BUILDKITE_BUILD_CHECKOUT_PATH}"
+  local extractdir="$(basename "$file_path" | cut -f 1 -d '.')"
+
+  tar -xf "${file_path}"
+
+  rm -rf "${BUILDKITE_BUILD_CHECKOUT_PATH}"
+  mv "${extractdir}" "${BUILDKITE_BUILD_CHECKOUT_PATH}"
 
   echo $(ls)
   pwd
